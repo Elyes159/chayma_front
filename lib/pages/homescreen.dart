@@ -195,6 +195,15 @@ class _UserScreenState extends State<UserScreen> {
                     ApiClient.deleteUser(context, user["email"]);
                   },
                 ),
+                IconButton(
+                  icon: Icon(Icons.check),
+                  onPressed: () {
+                    ApiClient.approveUser(
+                      context: context,
+                      email: user["email"],
+                    );
+                  },
+                ),
               ],
             ),
           );

@@ -181,7 +181,7 @@ class _loginscreenState extends State<loginscreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        forgetpasswordscreen()));
+                                        ForgetPasswordScreen()));
                           },
                           child: Text(
                             "Forget Password",

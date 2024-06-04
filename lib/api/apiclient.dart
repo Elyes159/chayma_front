@@ -385,8 +385,7 @@ class ApiClient {
     }
   }
 
-  static Future<void> deleteUser(BuildContext context,String email) async {
-
+  static Future<void> deleteUser(BuildContext context, String email) async {
     final url = Uri.parse('$baseUrl/delete_user_app/$email/');
 
     try {
@@ -403,6 +402,47 @@ class ApiClient {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to delete user')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred: $e')),
+      );
+    }
+  }
+
+  static Future<void> approveUser({
+    required BuildContext context,
+    required String email,
+  }) async {
+    final url = Uri.parse('$baseUrl/approve_app/$email/');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('user approved  successfully')),
+        );
+      } else if (response.statusCode == 404) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('user not found')),
+        );
+      } else if (response.statusCode == 400) {
+        final error = jsonDecode(response.body)['error'];
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $error')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to approve user')),
         );
       }
     } catch (e) {
