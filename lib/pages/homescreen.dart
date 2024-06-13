@@ -6,6 +6,7 @@ import 'package:sagemcom/pages/AddUserscreen.dart';
 import 'package:sagemcom/pages/EditProfilScreen.dart';
 import 'package:sagemcom/pages/EditTesteurscreen.dart';
 import 'package:sagemcom/pages/EditUserScreen.dart';
+import 'package:sagemcom/pages/lignescreen.dart';
 import 'package:sagemcom/pages/loginscreen.dart';
 import 'package:sagemcom/pages/profilscrenn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,7 @@ class _homescreenState extends State<homescreen> {
     ProfileScreen(),
     UserScreen(), // Remplacez par le bon widget pour l'écran User
     TesterScreen(), // Remplacez par le bon widget pour l'écran Testeur
+    LigneScreen(), // Nouvelle page LigneScreen
   ];
 
   // Map des AppBars avec des couleurs de fond et texte centré en blanc
@@ -47,6 +49,14 @@ class _homescreenState extends State<homescreen> {
     2: AppBar(
       title: Text(
         'Testeur',
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Colors.blue,
+      centerTitle: true,
+    ),
+    3: AppBar(
+      title: Text(
+        'Ligne',
         style: TextStyle(color: Colors.white),
       ),
       backgroundColor: Colors.blue,
@@ -112,7 +122,8 @@ class SideBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.timeline),
             title: Text('Ligne'),
-            onTap: () => onItemTapped(2),
+            onTap: () =>
+                onItemTapped(3), // Mis à jour pour appeler la nouvelle page
           ),
           ListTile(
             leading: Icon(Icons.logout),
@@ -131,6 +142,8 @@ class SideBar extends StatelessWidget {
     );
   }
 }
+
+// Assurez-vous que toutes les autres pages comme UserScreen et TesterScreen sont également définies correctement
 
 class UserScreen extends StatefulWidget {
   @override
