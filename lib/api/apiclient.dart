@@ -451,4 +451,25 @@ class ApiClient {
       );
     }
   }
+
+  static Future<Map<String, dynamic>> fetchPerformanceData() async {
+    final url = Uri.parse('$baseUrl/performance-data/');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    try {
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        return responseData;
+      } else {
+        throw Exception('Failed to fetch data: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('An error occurred: $e');
+    }
+  }
 }
